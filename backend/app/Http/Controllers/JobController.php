@@ -11,7 +11,7 @@ class JobController extends Controller
     // Public/Applicant: Browse all published jobs
     public function index()
     {
-        return Job::where('status', 'open')->with('employer:id,name')->latest()->get();
+        return Job::where('status', 'open')->with('employer:id,name')->latest()->paginate(9);
     }
 
     // Employer: View own jobs
@@ -20,7 +20,7 @@ class JobController extends Controller
         if ($request->user()->role !== 'employer') {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
-        return $request->user()->jobs()->latest()->get(); // Requires User hasMany jobs
+        return $request->user()->jobs()->latest()->paginate(9); // Requires User hasMany jobs
     }
 
     // Employer: Create Job

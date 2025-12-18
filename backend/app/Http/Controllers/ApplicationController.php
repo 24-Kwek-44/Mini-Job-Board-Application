@@ -24,7 +24,7 @@ class ApplicationController extends Controller
 
         $resumePath = null;
         if ($request->hasFile('resume')) {
-            $resumePath = $request->file('resume')->store('resumes');
+            $resumePath = $request->file('resume')->store('resumes', 'public');
             // Ensure storage:link is run
         }
 
@@ -34,6 +34,15 @@ class ApplicationController extends Controller
             'message' => $request->message,
             'resume_path' => $resumePath,
         ]);
+
+        // Load relationships for the email
+        $application->load(['job.employer', 'applicant']);
+
+        // Send Email Notification
+        if ($application->job->employer && $application->job->employer->email) {
+            \Illuminate\Support\Facades\Mail::to($application->job->employer->email)
+                ->send(new \App\Mail\ApplicationReceived($application));
+        }
 
         return response()->json($application, 201);
     }
