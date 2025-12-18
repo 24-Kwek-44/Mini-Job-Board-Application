@@ -50,10 +50,10 @@ By default, `MAIL_MAILER=log`. Emails appear in `storage/logs/laravel.log`.
 To send real emails (e.g., via Gmail), update your `.env`:
 - `MAIL_MAILER=smtp`
 - `MAIL_ENCRYPTION=tls`
-## API Testing
-Import `postman_collection.json` into Postman. 
-1. Register/Login to get a Bearer token.
-2. Use the token in the **Authorization** tab for protected requests.
+## Postman Collection
+You can view and test the API endpoints using the following Postman Collection link:
+[View Postman Collection](https://winter-firefly-8136300.postman.co/workspace/Kwek-Chee-Hao's-Workspace~72d094ea-e517-46e7-830c-e16cd11aacc5/request/50902096-a9566637-cdc9-40b7-925c-36a09845014c?action=share&creator=50902096&ctx=documentation)
+
 
 ## Technical Decisions & Reflections
 
@@ -71,8 +71,6 @@ Import `postman_collection.json` into Postman.
 - **Real-time UX**: Replaced native browser `alert()` calls with a custom-built **Toast Notification system**. This significantly improves the professional feel of the app and handles backend validation errors (422) by parsing them into human-readable messages.
 - **Environment Resilience**: Solved common deployment hurdles by implementing clear error handling for SMTP and ensuring that complex `.env` passwords (containing whitespace) are handled via proper quoting—a common pitfall in local development.
 
-### 🌟 Project Takeaways
-This project was built with **scalability** in mind. The separation of the frontend and backend allows for independent deployments, while the role-based system is designed to easily accommodate future roles (like "Admin") without major refactoring.
 
 ---
 *Developed as part of the Full Stack Engineer Technical Assessment.*
