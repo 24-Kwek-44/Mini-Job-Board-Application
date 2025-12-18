@@ -12,10 +12,6 @@ class ApplicationController extends Controller
     // Applicant: Apply to a job
     public function store(Request $request)
     {
-        if ($request->user()->role !== 'applicant') {
-            return response()->json(['message' => 'Only applicants can apply'], 403);
-        }
-
         $request->validate([
             'job_id' => 'required|exists:job_listings,id',
             'message' => 'required|string',

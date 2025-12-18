@@ -17,19 +17,12 @@ class JobController extends Controller
     // Employer: View own jobs
     public function myJobs(Request $request)
     {
-        if ($request->user()->role !== 'employer') {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
         return $request->user()->jobs()->latest()->paginate(9); // Requires User hasMany jobs
     }
 
     // Employer: Create Job
     public function store(Request $request)
     {
-        if ($request->user()->role !== 'employer') {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
-
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',

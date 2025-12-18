@@ -50,9 +50,29 @@ By default, `MAIL_MAILER=log`. Emails appear in `storage/logs/laravel.log`.
 To send real emails (e.g., via Gmail), update your `.env`:
 - `MAIL_MAILER=smtp`
 - `MAIL_ENCRYPTION=tls`
-- Wrap passwords in quotes: `MAIL_PASSWORD="your password"`
-
 ## API Testing
 Import `postman_collection.json` into Postman. 
 1. Register/Login to get a Bearer token.
 2. Use the token in the **Authorization** tab for protected requests.
+
+## Technical Decisions & Reflections
+
+### 🏗 Backend Architecture & Security
+- **Domain-Driven Middleware**: Instead of cluttering controllers with authorization checks, I implemented a dedicated `EnsureUserHasRole` middleware. This ensures that the security layer is decoupled from the business logic, allowing for cleaner code and easier testing.
+- **Stateless Authentication**: Chose **Laravel Sanctum** for its lightweight nature. It provides a robust token-based system that is perfect for SPA (Single Page Application) communication without the overhead of Oauth2.
+- **Relational Integrity**: The database schema uses strict foreign key constraints (SQLite) to ensure that orphan applications cannot exist if a job or user is deleted (`onDelete('cascade')`).
+
+### 🎨 Frontend Logic & State Management
+- **State Centralization with Pinia**: Authentication state (user role, tokens) and the global Notification system are managed via Pinia. This avoids "prop drilling" and ensures that if a user logs out in one component, the entire UI responds instantly.
+- **Composition API**: Leveraged Vue 3's `script setup` syntax for better logic grouping and code readability compared to the older Options API.
+- **Tailwind CSS v4 Migration**: One specific technical decision was adopting the latest **Tailwind v4**. While it introduced configuration challenges (PostCSS integration), it resulted in a faster build process and a more modern, CSS-variable-based design system.
+
+### 🧩 Problem Solving & Challenges
+- **Real-time UX**: Replaced native browser `alert()` calls with a custom-built **Toast Notification system**. This significantly improves the professional feel of the app and handles backend validation errors (422) by parsing them into human-readable messages.
+- **Environment Resilience**: Solved common deployment hurdles by implementing clear error handling for SMTP and ensuring that complex `.env` passwords (containing whitespace) are handled via proper quoting—a common pitfall in local development.
+
+### 🌟 Project Takeaways
+This project was built with **scalability** in mind. The separation of the frontend and backend allows for independent deployments, while the role-based system is designed to easily accommodate future roles (like "Admin") without major refactoring.
+
+---
+*Developed as part of the Full Stack Engineer Technical Assessment.*

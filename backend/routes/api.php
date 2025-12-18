@@ -13,13 +13,19 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return $request->user();
     });
 
-    // Job Routes
-    Route::get('/my-jobs', [App\Http\Controllers\JobController::class, 'myJobs']);
-    Route::post('/jobs', [App\Http\Controllers\JobController::class, 'store']);
-    Route::put('/jobs/{job}', [App\Http\Controllers\JobController::class, 'update']);
-    Route::delete('/jobs/{job}', [App\Http\Controllers\JobController::class, 'destroy']);
-    Route::get('/jobs/{job}/applications', [App\Http\Controllers\ApplicationController::class, 'index']);
-    Route::post('/applications', [App\Http\Controllers\ApplicationController::class, 'store']);
+    // Employer Routes
+    Route::middleware(['role:employer'])->group(function () {
+        Route::get('/my-jobs', [App\Http\Controllers\JobController::class, 'myJobs']);
+        Route::post('/jobs', [App\Http\Controllers\JobController::class, 'store']);
+        Route::put('/jobs/{job}', [App\Http\Controllers\JobController::class, 'update']);
+        Route::delete('/jobs/{job}', [App\Http\Controllers\JobController::class, 'destroy']);
+        Route::get('/jobs/{job}/applications', [App\Http\Controllers\ApplicationController::class, 'index']);
+    });
+
+    // Applicant Routes
+    Route::middleware(['role:applicant'])->group(function () {
+        Route::post('/applications', [App\Http\Controllers\ApplicationController::class, 'store']);
+    });
 });
 
 Route::get('/jobs', [App\Http\Controllers\JobController::class, 'index']);
