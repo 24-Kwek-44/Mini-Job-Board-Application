@@ -52,7 +52,7 @@ To send real emails (e.g., via Gmail), update your `.env`:
 - `MAIL_ENCRYPTION=tls`
 ## Postman Collection
 You can view and test the API endpoints using the following Postman Collection link:
-[View Postman Collection](https://winter-firefly-8136300.postman.co/workspace/Kwek-Chee-Hao's-Workspace~72d094ea-e517-46e7-830c-e16cd11aacc5/request/50902096-a9566637-cdc9-40b7-925c-36a09845014c?action=share&creator=50902096&ctx=documentation)
+[View Postman Collection](https://winter-firefly-8136300.postman.co/workspace/Kwek-Chee-Hao's-Workspace~72d094ea-e517-46e7-830c-e16cd11aacc5/collection/50902096-ca5f9e15-ad1d-4949-a0a7-ec1f588f4fe5?action=share&creator=50902096)
 
 
 ## Implementation Details & Reflections
