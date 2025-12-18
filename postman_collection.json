@@ -109,6 +109,72 @@
               ]
             }
           }
+        },
+        {
+          "name": "Apply for Job",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "job_id",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "message",
+                  "value": "I am interested in this role.",
+                  "type": "text"
+                },
+                {
+                  "key": "resume",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/applications",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "applications"
+              ]
+            }
+          }
+        },
+        {
+          "name": "View Applications for Job",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/jobs/1/applications",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jobs",
+                "1",
+                "applications"
+              ]
+            }
+          }
         }
       ]
     }
